@@ -1,0 +1,89 @@
+/* Gaya untuk halaman Hubungi Kami */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f4f8;
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: top center;
+    padding-top: 20px;
+    margin: 0;
+}
+
+/* Gaya untuk Header dengan menu dan logo */
+.header {
+    display: flex;
+    justify-content: space-between; /* Menu di kiri, logo di kanan */
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.menu {
+    display: flex;
+    gap: 20px; /* Ruang antara link */
+}
+
+.menu a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #3c5a99;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.menu a:hover {
+    color: #2d4373;
+}
+
+/* Logo styling */
+.logo-container {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+}
+
+h1 {
+    color: #3c5a99;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    font-size: 2em;
+    margin-top: 1px;
+    text-align: center;
+}
+
+/* Garis Pemisah di bawah tajuk */
+hr {
+    width: 110%; /* Lebar garis */
+    border: 0; /* Buang border asal */
+    border-top: 2px solid #3c5a99; /* Warna dan ketebalan garis */
+    margin-top: 10px; /* Jarak atas */
+    margin-bottom: 50px; /* Jarak bawah */
+}
+
+/* Maklumat Hubungi */
+h2 {
+    color: #3c5a99;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+}
+
+a {
+    color: #3c5a99;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #2d4373;
+}

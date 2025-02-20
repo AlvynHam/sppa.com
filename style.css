@@ -1,0 +1,179 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f4f8;
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: top center;
+    padding-top:20px;
+    margin: 0;
+}
+
+/* Gaya untuk Header dengan menu dan logo */
+.header {
+    display: flex;
+    justify-content: space-between; /* Menu di kiri, logo di kanan */
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.menu {
+    display: flex;
+    gap: 20px; /* Ruang antara link */
+}
+
+.menu a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #3c5a99;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.menu a:hover {
+    color: #2d4373;
+}
+
+/* Logo styling */
+.logo-container {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+}
+
+body .brand .blue { color: #3c5a99;}
+body .brand .oren { color: #ffa600;}
+
+.brand {
+    font-size: 30px;
+    margin-bottom: 30px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+h1 {
+    color: #3c5a99;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    font-size: 2em;
+    margin-top: 1px;
+}
+
+/* Garis Pemisah di bawah tajuk */
+hr {
+    width: 110%; /* Lebar garis */
+    border: 0; /* Buang border asal */
+    border-top: 2px solid #3c5a99; /* Warna dan ketebalan garis */
+    margin-top: 10px; /* Jarak atas */
+    margin-bottom: 50px; /* Jarak bawah */
+}
+
+/* Logo styling */
+.logo-container {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+}
+
+/* Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 300px;
+    background-color: #ffa600;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+input, select, button, textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    cursor: pointer;
+    background-color: #3c5a99;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2d4373;
+}
+
+table {
+    width: 90%;
+    max-width: 800px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+body .text .blue {color: #3c5a99;}
+body .text .oren {color: #ffa600;}
+
+.text {
+    font-size: 20px;
+    margin-top: 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #3c5a99;
+    color: #fff;
+    font-weight: bold;
+}
+
+button.update-btn {
+    margin: 2px;
+    padding: 5px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button.update-btn:hover {
+    background-color: #218838;
+}
+
+button.reject-btn {
+    margin: 2px;
+    padding: 5px;
+    background-color: #dc3545;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button.reject-btn:hover {
+    background-color: #c82333;
+}

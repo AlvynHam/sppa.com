@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Penempahan Pusat Akses - Admin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Sistem Penempahan Pusat Akses - Pengurusan Admin</h1>
+
+    <!-- Jadual Tempahan -->
+    <h2>Senarai Tempahan</h2>
+    <table id="bookingTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Jawatan</th>
+                <th>Tarikh</th>
+                <th>Masa Mula</th>
+                <th>Masa Tamat</th>
+                <th>Bilangan Pelajar</th>
+                <th>Catatan</th>
+                <th>Status</th>
+                <th>Tindakan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Tempahan akan dipaparkan di sini dengan JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fungsi untuk memaparkan tempahan dari localStorage
+        function displayBookings() {
+            const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+            const tableBody = document.querySelector('#bookingTable tbody');
+            tableBody.innerHTML = ''; // Kosongkan dulu jadual sebelum dipaparkan
+
+            bookings.forEach((booking, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${booking.nama}</td>
+                    <td>${booking.jawatan}</td>
+                    <td>${booking.tarikh}</td>
+                    <td>${booking.masaMula}</td>
+                    <td>${booking.masaTamat}</td>
+                    <td>${booking.bilanganPelajar}</td>
+                    <td>${booking.catatan}</td>
+                    <td>${booking.status || 'Dalam Proses'}</td>
+                    <td>
+                        <button class="update-status" data-index="${index}" data-status="Diterima">Diterima</button> | 
+                        <button class="update-status" data-index="${index}" data-status="Ditolak">Ditolak</button> | 
+                        <button class="update-status" data-index="${index}" data-status="Dalam Proses">Dalam Proses</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Fungsi untuk mengemaskini status tempahan
+        document.querySelector('#bookingTable').addEventListener('click', function(e) {
+            if (e.target.classList.contains('update-status')) {
+                const index = e.target.getAttribute('data-index');
+                const newStatus = e.target.getAttribute('data-status');
+
+                const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+                bookings[index].status = newStatus;
+                localStorage.setItem('bookings', JSON.stringify(bookings));
+
+                displayBookings(); // Paparkan semula tempahan selepas status dikemaskini
+                alert(`Status tempahan telah dikemas kini kepada: ${newStatus}`);
+            }
+        });
+
+        // Paparkan tempahan ketika halaman dimuatkan
+        window.onload = displayBookings;
+    </script>
+
+</body>
+</html>

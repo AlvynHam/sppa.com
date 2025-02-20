@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Penempahan Pusat Akses</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Logo dan Menu -->
+    <div class="header">
+        <div class="menu">
+            <a href="dashboard.html">Home</a>
+            <a href="call.html">Hubungi Kami</a>
+        </div>
+        <div class="logo-container">
+            <img src="imej1.png" alt="Logo Pusat Akses" class="logo">
+        </div>
+    </div>
+
+    <hr> <!-- Garis Pemisah -->
+    <div class="brand">
+        <span class="blue">Sistem</span>
+        <span class="oren">Penempahan</span>
+        <span class="blue">Pusat</span>
+        <span class="oren">Akses</span>
+    </div>
+
+    <!-- Borang Tempahan -->
+    <form id="bookingForm">
+        <input type="text" id="nama" name="nama" placeholder="Nama" required />
+        <select id="jawatan" name="jawatan">
+            <option value="Pelajar">Pelajar</option>
+            <option value="Pensyarah">Pensyarah</option>
+        </select>
+        <input type="date" id="tarikh" name="tarikh" required />
+        <input type="time" id="masaMula" name="masaMula" required />
+        <input type="time" id="masaTamat" name="masaTamat" required />
+        <input type="number" id="bilanganPelajar" name="bilanganPelajar" placeholder="Bilangan Pelajar (jika ada)" min="1" />
+        <textarea id="catatan" name="catatan" placeholder="Catatan (sebab tempahan)" rows="3"></textarea>
+        <button type="submit">Hantar Tempahan</button>
+    </form>
+
+    <!-- Jadual Tempahan -->
+    <div class="text">
+        <span class="blue">Jadual</span>
+        <span class="oren">Penempahan</span>
+    </div>
+    <table id="bookingTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Jawatan</th>
+                <th>Tarikh</th>
+                <th>Masa Mula</th>
+                <th>Masa Tamat</th>
+                <th>Bilangan Pelajar</th>
+                <th>Catatan</th>
+                <th>Status</th>
+                <th>Tindakan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Tempahan akan dipaparkan di sini dengan JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fungsi untuk memaparkan tempahan dari localStorage
+        function displayBookings() {
+            const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+            const tableBody = document.querySelector('#bookingTable tbody');
+            tableBody.innerHTML = ''; // Kosongkan dulu jadual sebelum dipaparkan
+
+            bookings.forEach((booking, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${booking.nama}</td>
+                    <td>${booking.jawatan}</td>
+                    <td>${booking.tarikh}</td>
+                    <td>${booking.masaMula}</td>
+                    <td>${booking.masaTamat}</td>
+                    <td>${booking.bilanganPelajar}</td>
+                    <td>${booking.catatan}</td>
+                    <td>${booking.status || 'Aktif'}</td>
+                    <td><button class="delete" data-index="${index}">Padam</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Simpan tempahan ke localStorage
+        document.getElementById('bookingForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // Elakkan dari reload page
+
+            const newBooking = {
+                nama: document.getElementById('nama').value,
+                jawatan: document.getElementById('jawatan').value,
+                tarikh: document.getElementById('tarikh').value,
+                masaMula: document.getElementById('masaMula').value,
+                masaTamat: document.getElementById('masaTamat').value,
+                bilanganPelajar: document.getElementById('bilanganPelajar').value,
+                catatan: document.getElementById('catatan').value
+            };
+
+            // Ambil tempahan yang ada dalam localStorage dan tambah tempahan baru
+            const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+            bookings.push(newBooking);
+            localStorage.setItem('bookings', JSON.stringify(bookings));
+
+            // Panggil fungsi untuk paparkan tempahan
+            displayBookings();
+            alert('Tempahan berjaya dihantar!');
+        });
+
+        // Padam tempahan
+        document.querySelector('#bookingTable').addEventListener('click', function (e) {
+            if (e.target.classList.contains('delete')) {
+                const index = e.target.getAttribute('data-index');
+                const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+                bookings.splice(index, 1);
+                localStorage.setItem('bookings', JSON.stringify(bookings));
+                displayBookings();
+                alert('Tempahan berjaya dipadam.');
+            }
+        });
+
+        // Paparkan tempahan ketika halaman dimuatkan
+        window.onload = displayBookings;
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Penempahan Pusat Akses</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1>Sistem Penempahan Pusat Akses</h1>
+        <p>Kolej Vokasional Tawau - Mudah, Cepat, & Efisien</p>
+    </header>
+
+    <div class="container">
+        <div class="form-container">
+            <h2 id="form-title">Log Masuk</h2>
+            <form id="form">
+                <!-- Form Log Masuk -->
+                <div class="form-group" id="login-form">
+                    <label for="login-email">Emel:</label>
+                    <input type="email" id="login-email" name="login-email" required placeholder="Masukkan emel anda">
+                    <label for="login-password">Kata Laluan:</label>
+                    <input type="password" id="login-password" name="login-password" required placeholder="Masukkan kata laluan anda">
+                </div>
+
+                <!-- Form Pendaftaran -->
+                <div class="form-group" id="signup-form" style="display: none;">
+                    <label for="signup-name">Nama:</label>
+                    <input type="text" id="signup-name" name="signup-name" required placeholder="Masukkan nama anda">
+                    <label for="signup-email">Emel:</label>
+                    <input type="email" id="signup-email" name="signup-email" required placeholder="Masukkan emel anda">
+                    <label for="signup-password">Kata Laluan:</label>
+                    <input type="password" id="signup-password" name="signup-password" required placeholder="Masukkan kata laluan anda">
+                </div>
+
+                <button type="submit" class="btn" id="submit-btn">Log Masuk</button>
+            </form>
+
+            <p id="switch-text" onclick="toggleForm()">Belum ada akaun? Daftar sekarang</p>
+        </div>
+    </div>
+
+    <script>
+        let isLogin = true;
+
+        function toggleForm() {
+            const formTitle = document.getElementById('form-title');
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const switchText = document.getElementById('switch-text');
+            const submitButton = document.getElementById('submit-btn');
+            const signupInputs = document.querySelectorAll('#signup-form input');
+            const loginInputs = document.querySelectorAll('#login-form input');
+            
+            if (isLogin) {
+                formTitle.textContent = 'Daftar Akaun';
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+                signupInputs.forEach(input => {
+                    input.disabled = false;
+                    input.required = true;
+                });
+                loginInputs.forEach(input => {
+                    input.disabled = true;
+                    input.required = false;
+                });
+                submitButton.textContent = 'Daftar';
+                switchText.textContent = 'Sudah ada akaun? Log masuk sekarang';
+            } else {
+                formTitle.textContent = 'Log Masuk';
+                loginForm.style.display = 'block';
+                signupForm.style.display = 'none';
+                signupInputs.forEach(input => {
+                    input.disabled = true;
+                    input.required = false;
+                });
+                loginInputs.forEach(input => {
+                    input.disabled = false;
+                    input.required = true;
+                });
+                submitButton.textContent = 'Log Masuk';
+                switchText.textContent = 'Belum ada akaun? Daftar sekarang';
+            }
+
+            isLogin = !isLogin;
+        }
+
+        // Fungsi untuk menyimpan data pengguna ke localStorage
+        function storeUser(name, email, password) {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            users.push({ name, email, password });
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        // Fungsi untuk mendapatkan pengguna dari localStorage
+        function getUserByEmail(email) {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            return users.find(user => user.email === email);
+        }
+
+        // Menangani proses log masuk dan pendaftaran
+        document.getElementById('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (isLogin) {
+                const loginEmail = document.getElementById('login-email').value.trim();
+                const loginPassword = document.getElementById('login-password').value.trim();
+
+                if (!loginEmail || !loginPassword) {
+                    alert('Sila isi semua medan log masuk.');
+                    return;
+                }
+
+                const user = getUserByEmail(loginEmail);
+                if (user && user.password === loginPassword) {
+                    alert('Log masuk berjaya! Selamat datang, ' + user.name);
+                    localStorage.setItem('loggedInUser', JSON.stringify(user)); // Simpan pengguna yang sedang log masuk
+                    window.location.href = 'dashboard.html'; // Redirect ke dashboard
+                } else {
+                    alert('Emel atau kata laluan salah.');
+                }
+            } else {
+                const signupName = document.getElementById('signup-name').value.trim();
+                const signupEmail = document.getElementById('signup-email').value.trim();
+                const signupPassword = document.getElementById('signup-password').value.trim();
+
+                if (!signupName || !signupEmail || !signupPassword) {
+                    alert('Sila isi semua medan pendaftaran.');
+                    return;
+                }
+
+                // Semak jika emel sudah wujud
+                const existingUser = getUserByEmail(signupEmail);
+                if (existingUser) {
+                    alert('Emel sudah didaftarkan.');
+                    return;
+                }
+
+                // Simpan pengguna baru
+                storeUser(signupName, signupEmail, signupPassword);
+                alert('Pendaftaran berjaya! Sila log masuk.');
+                toggleForm(); // Tukar ke borang log masuk selepas pendaftaran
+            }
+        });
+    </script>
+</body>
+</html>

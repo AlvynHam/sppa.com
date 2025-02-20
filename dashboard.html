@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <h1>Dashboard - Sistem Penempahan Pusat Akses</h1>
+    </header>
+
+    <div class="container">
+        <div class="dashboard-content">
+            <h2>Selamat Datang, <span id="user-name"></span>!</h2>
+            <p>Anda berjaya log masuk ke sistem penempahan pusat akses, anda sudah boleh mulakan tempahan sekarang.</p>
+
+            <!-- Info pengguna -->
+            <div class="user-info">
+                <h3>Maklumat Pengguna</h3>
+                <p><strong>Nama:</strong> <span id="user-name-info"></span></p>
+            </div>
+            <a href="tempahan.html" class="btn btn-secondary">Mulakan Tempahan</a>
+            <!-- Log Keluar -->
+            <a href="index.html" class="btn btn-secondary" onclick="logout()">Log Keluar</a>
+        </div>
+    </div>
+
+    <script>
+        // Memaparkan nama pengguna yang telah log masuk
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+        if (loggedInUser) {
+            document.getElementById('user-name').textContent = loggedInUser.name;
+            document.getElementById('user-name-info').textContent = loggedInUser.name;
+        } else {
+            window.location.href = 'index.html'; // Jika tiada sesi log masuk, redirect ke halaman log masuk
+        }
+
+        // Fungsi log keluar
+        function logout() {
+            localStorage.removeItem('loggedInUser');
+        }
+    </script>
+</body>
+</html>
